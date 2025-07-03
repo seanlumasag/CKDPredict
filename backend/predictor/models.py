@@ -5,6 +5,5 @@ class Patient(models.Model):
     bp = models.FloatField()
     sg = models.FloatField()
     al = models.FloatField()
-    # Add more fields as needed
-    prediction = models.BooleanField(null=True)  # CKD True/False
-    created_at = models.DateTimeField(auto_now_add=True)  # << Add this!
+    prediction = models.BooleanField(null=True) 
+    created_at = models.DateTimeField(auto_now_add=True) 

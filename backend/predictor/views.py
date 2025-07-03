@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Patient
 from .serializers import PatientSerializer
-
+from .dummy_model import model
 
 @api_view(['POST'])
 def predict_ckd(request):
@@ -12,24 +12,22 @@ def predict_ckd(request):
         data = serializer.validated_data
         input_features = [data['age'], data['bp'], data['sg'], data['al']]
 
-        # Dummy prediction logic
-        prediction = 1 if data['age'] > 50 else 0
+        prediction_list = model.predict(input_features)
+        prediction = prediction_list[0]
 
-        # Save to DB
-        patient = Patient.objects.create(
+        Patient.objects.create(
             age=data['age'],
             bp=data['bp'],
             sg=data['sg'],
             al=data['al'],
             prediction=bool(prediction)
         )
-
         return Response({'ckd_risk': bool(prediction)})
     return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
 def recent_predictions(request):
-    patients = Patient.objects.order_by('-created_at')[:10]  # last 10 entries
+    patients = Patient.objects.order_by('-created_at')[:10]
     serializer = PatientSerializer(patients, many=True)
     return Response(serializer.data)
 
@@ -42,9 +40,19 @@ def update_patient(request, pk):
 
     serializer = PatientSerializer(patient, data=request.data)
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
+        data = serializer.validated_data 
+        updated_patient = serializer.save()
+
+        input_features = [[data['age'], data['bp'], data['sg'], data['al']]]
+        prediction_list = model.predict(input_features)
+        prediction = prediction_list[0]
+
+        updated_patient.prediction = bool(prediction)
+        updated_patient.save()
+
+        return Response({'ckd_risk': bool(prediction)})
     return Response(serializer.errors, status=400)
+
 
 @api_view(['DELETE'])
 def delete_patient(request, pk):
