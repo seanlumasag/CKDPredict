@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Patient
 from .serializers import PatientSerializer
 
@@ -44,3 +45,12 @@ def update_patient(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def delete_patient(request, pk):
+    try:
+        patient = Patient.objects.get(pk=pk)
+        patient.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Patient.DoesNotExist:
+        return Response({'error': 'Patient not found'}, status=status.HTTP_404_NOT_FOUND)

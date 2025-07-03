@@ -96,6 +96,26 @@ function App() {
     setError(null);
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this record?")) return;
+
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/patient/${id}/delete/`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to delete");
+
+      // Refresh history after delete
+      await fetchHistory();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
     <div>
       <h1>CKDPredict</h1>
@@ -180,6 +200,7 @@ function App() {
               <td>{new Date(patient.created_at).toLocaleString()}</td>
               <td>
                 <button onClick={() => handleEdit(patient)}>Edit</button>
+                <button onClick={() => handleDelete(patient.id)}>Delete</button>
               </td>
             </tr>
           ))}
