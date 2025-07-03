@@ -27,7 +27,20 @@ def predict_ckd(request):
     return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
-def get_patients(request):
-    patients = Patient.objects.all()
+def recent_predictions(request):
+    patients = Patient.objects.order_by('-created_at')[:10]  # last 10 entries
     serializer = PatientSerializer(patients, many=True)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+def update_patient(request, pk):
+    try:
+        patient = Patient.objects.get(pk=pk)
+    except Patient.DoesNotExist:
+        return Response({'error': 'Not found'}, status=404)
+
+    serializer = PatientSerializer(patient, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
