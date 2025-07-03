@@ -10,7 +10,7 @@ def predict_ckd(request):
     serializer = PatientSerializer(data=request.data)
     if serializer.is_valid():
         data = serializer.validated_data
-        input_features = [data['age'], data['bp'], data['sg'], data['al']]
+        input_features = [[data['age'], data['bp'], data['sg'], data['al']]]
 
         prediction_list = model.predict(input_features)
         prediction = prediction_list[0]

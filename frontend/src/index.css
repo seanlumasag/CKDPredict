@@ -1,0 +1,84 @@
+:root {
+  background-color: #181818;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #aaaaaa;
+  transition-duration: 0.2s;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+h1,
+h2 {
+  color: white;
+}
+
+.prediction-form,
+.predictions-table {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border-radius: 2rem;
+  height: 34rem;
+  width: 34rem;
+  flex: none;
+}
+
+.img-container {
+  flex: none;
+  height: 7.5rem;
+  width: 7.5rem;
+  overflow: hidden;
+  object-fit: cover;
+  background-color: white;
+  border-radius: 1rem;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.prediction-form {
+  justify-content: space-between;
+  background-color: #1f1f1f;
+}
+
+.prediction-form:hover {
+  background-color: #262626;
+}
+
+.predictions-table:hover {
+  background-color: #1f1f1f;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+form button {
+  grid-column: span 2;
+}
