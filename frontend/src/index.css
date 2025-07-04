@@ -10,6 +10,11 @@
   transition-duration: 0.2s;
 }
 
+h1,
+h2 {
+  color: white;
+}
+
 .app {
   height: 100vh;
   display: flex;
@@ -18,17 +23,12 @@
   justify-content: center;
 }
 
-h1,
-h2 {
-  color: white;
-}
-
 .prediction-form,
 .predictions-table {
   display: flex;
   flex-direction: column;
   padding: 3rem;
-  border-radius: 2rem;
+  border-radius: 3rem;
   height: 34rem;
   width: 34rem;
   flex: none;
@@ -81,4 +81,94 @@ label {
 
 form button {
   grid-column: span 2;
+}
+
+form input {
+  background-color: #262626;
+  border: 1px solid #aaaaaa;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+form input:focus {
+  outline: none;
+  background-color: #333;
+}
+
+form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #3a3a3a;
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #505050;
+}
+
+.predictions-table {
+  padding: 3rem;
+  height: 34rem;
+  width: 34rem;
+  color: #aaaaaa;
+}
+
+.predictions-table h2 {
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.predictions-table table {
+  width: 100%;
+  border-collapse: collapse;
+  word-wrap: break-word;
+  color: #cccccc;
+}
+
+.predictions-table th,
+.predictions-table td {
+  border: 1px solid #333;
+  padding: 0.35rem 0.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.predictions-table th {
+  background-color: #2a2a2a;
+  color: #eeeeee;
+  font-weight: 600;
+}
+
+.predictions-table tbody tr:hover {
+  background-color: #333333;
+  cursor: pointer;
+}
+
+.predictions-table button {
+  background-color: #3a3a3a;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  margin: 0 0.15rem;
+  color: #ddd;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.predictions-table button:hover {
+  background-color: #555;
+}
+
+.predictions-table button:focus {
+  outline: 2px solid #888;
+  outline-offset: 2px;
 }

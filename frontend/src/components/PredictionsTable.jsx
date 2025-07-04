@@ -12,7 +12,7 @@ function PredictionsTable({
 
   return (
     <div className="predictions-table">
-      <h2>Recent Predictions</h2>
+      <h2>Past Predictions</h2>
       <table>
         <thead>
           <tr>
@@ -33,7 +33,7 @@ function PredictionsTable({
               <td>{patient.sg}</td>
               <td>{patient.al}</td>
               <td>{patient.prediction ? "High Risk" : "Low Risk"}</td>
-              <td>{new Date(patient.created_at).toLocaleString()}</td>
+              <td>{new Date(patient.created_at).toLocaleDateString()}</td>
               <td>
                 <button onClick={() => handleEdit(patient)}>Edit</button>
                 <button onClick={() => handleDelete(patient.id)}>Delete</button>

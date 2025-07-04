@@ -20,7 +20,7 @@ function PredictionForm({
       <div className="hero">
         <div className="text-container">
           <h1>CKDPredict</h1>
-          <p>Chronic Kidney Disease Risk Predictor App</p>
+          <p>Chronic Kidney Disease Risk Predictor Full-Stack App</p>
         </div>
         <div className="img-container">
           <img src={logo} alt="" />
@@ -73,11 +73,7 @@ function PredictionForm({
         </form>
       </div>
 
-      {result && (
-        <p>
-          <strong>Result:</strong> {result}
-        </p>
-      )}
+      <p>Result: {result}</p>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
