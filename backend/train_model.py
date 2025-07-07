@@ -39,6 +39,7 @@ samples = [
     [55, 110, 1.008, 2],
     [65, 115, 1.006, 3],
     [75, 140, 1.004, 5],
+    [15,65,1.015,0]
 ]
 
 df_samples = pd.DataFrame(samples, columns=['age', 'bp', 'sg', 'al'])
