@@ -223,6 +223,10 @@ form button:hover {
 }
 
 .predictions-table:hover button {
+  color: var(--p2);
+}
+
+.predictions-table:hover button {
   background-color: var(--b2);
 }
 
@@ -231,5 +235,19 @@ form button:hover {
 }
 
 .predictions-table:hover button:hover {
-  background-color: var(--b4)
+  background-color: var(--b4);
+}
+
+@media (max-width: 1150px) and (min-width: 650px) {
+  .app {
+    flex-direction: column;
+    height: auto;
+    padding: 4rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .app {
+    display: none;
+  }
 }
