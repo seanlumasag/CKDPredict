@@ -3,14 +3,16 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Patient
 from .serializers import PatientSerializer
-from .dummy_model import model
+import pandas as pd
+import joblib
+model=joblib.load('predictor/ckd_model.pkl')
 
 @api_view(['POST'])
 def predict_ckd(request):
     serializer = PatientSerializer(data=request.data)
     if serializer.is_valid():
         data = serializer.validated_data
-        input_features = [[data['age'], data['bp'], data['sg'], data['al']]]
+        input_features = pd.DataFrame([[data['age'], data['bp'], data['sg'], data['al']]], columns=['age', 'bp', 'sg', 'al'])
 
         prediction_list = model.predict(input_features)
         prediction = prediction_list[0]
@@ -43,7 +45,7 @@ def update_patient(request, pk):
         data = serializer.validated_data 
         updated_patient = serializer.save()
 
-        input_features = [[data['age'], data['bp'], data['sg'], data['al']]]
+        input_features = pd.DataFrame([[data['age'], data['bp'], data['sg'], data['al']]], columns=['age', 'bp', 'sg', 'al'])
         prediction_list = model.predict(input_features)
         prediction = prediction_list[0]
 
