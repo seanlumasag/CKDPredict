@@ -65,7 +65,7 @@ function App() {
       if (!response.ok) throw new Error("Failed to save data");
 
       const data = await response.json();
-      setResult(data.ckd_risk ? "High CKD Risk" : "Low CKD Risk");
+      setResult(data.ckd_risk ? "High Risk" : "Low Risk");
       setIsEditing(false);
       setEditId(null);
       setAge("");

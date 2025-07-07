@@ -1,12 +1,19 @@
 :root {
   background-color: #181818;
+  --accent: rebeccapurple;
+  --accent2: rgb(121, 60, 182);
+  --p1: #aaaaaa;
+  --p2: #d3d3d3;
+  --b1: #1f1f1f;
+  --b2: #262626;
+  --b3: #303030;
+  --b4: #373737;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #aaaaaa;
   transition-duration: 0.2s;
 }
 
@@ -15,10 +22,14 @@ h2 {
   color: white;
 }
 
+p {
+  color: var(--p1);
+}
+
 .app {
   height: 100vh;
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   align-items: center;
   justify-content: center;
 }
@@ -55,23 +66,59 @@ img {
   gap: 2rem;
 }
 
+.result-container {
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+}
+
+.result {
+  padding: 0.5rem 0.75rem;
+  margin: -0.5rem;
+  border-radius: 1rem;
+  background-color: var(--accent);
+  color: white;
+  display: inline-block;
+}
+
+.prediction-form .result {
+  margin-left: 0.25rem;
+}
+
+.result:empty {
+  display: none;
+}
+
 .prediction-form {
   justify-content: space-between;
-  background-color: #1f1f1f;
+  background-color: var(--b1);
 }
 
 .prediction-form:hover {
-  background-color: #262626;
+  background-color: var(--b2);
+}
+
+.prediction-form label {
+  color: var(--p1);
+}
+
+.prediction-form:hover p,
+.prediction-form:hover label {
+  color: var(--p2);
+}
+
+.prediction-form:hover input {
+  background-color: var(--b3);
 }
 
 .predictions-table:hover {
-  background-color: #1f1f1f;
+  background-color: var(--b1);
 }
 
 form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 label {
@@ -84,46 +131,42 @@ form button {
 }
 
 form input {
-  background-color: #262626;
-  border: 1px solid #aaaaaa;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+  background-color: var(--b2);
+  border: 0px solid white;
+  border-radius: 1rem;
+  padding: 0.75rem;
   font-size: 1rem;
-  color: white;
+  color: var(--p2);
   width: 100%;
   margin-top: 0.25rem;
 }
 
-form input:focus {
+input {
   outline: none;
-  background-color: #333;
+}
+
+.prediction-form:hover input:focus,
+input:focus {
+  background-color: var(--b4);
 }
 
 form button {
-  padding: 0.75rem;
+  padding: 1rem;
   font-size: 1rem;
-  background-color: #3a3a3a;
+  background-color: var(--accent);
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   color: white;
   cursor: pointer;
 }
 
 form button:hover {
-  background-color: #505050;
-}
-
-.predictions-table {
-  padding: 3rem;
-  height: 34rem;
-  width: 34rem;
-  color: #aaaaaa;
+  background-color: var(--accent2);
 }
 
 .predictions-table h2 {
   color: white;
   margin-bottom: 1rem;
-  font-weight: 600;
   text-align: center;
 }
 
@@ -131,44 +174,62 @@ form button:hover {
   width: 100%;
   border-collapse: collapse;
   word-wrap: break-word;
-  color: #cccccc;
+}
+
+.predictions-table td {
+  color: var(--p1);
+}
+
+.predictions-table:hover td {
+  color: var(--p2);
 }
 
 .predictions-table th,
 .predictions-table td {
-  border: 1px solid #333;
-  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--b2);
+  padding: 0.7rem 0.5rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+}
+
+.predictions-table:hover th,
+.predictions-table:hover td {
+  border-color: var(--b3);
 }
 
 .predictions-table th {
-  background-color: #2a2a2a;
-  color: #eeeeee;
-  font-weight: 600;
+  color: white;
 }
 
 .predictions-table tbody tr:hover {
-  background-color: #333333;
+  background-color: var(--b2);
   cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.75rem;
 }
 
 .predictions-table button {
-  background-color: #3a3a3a;
+  background-color: var(--b1);
   border: none;
-  border-radius: 0.5rem;
-  padding: 0.3rem;
-  margin: 0 0.15rem;
-  color: #ddd;
-  font-size: 0.85rem;
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem;
+  margin: -0.5rem -0.75rem;
+  color: var(--p1);
   cursor: pointer;
 }
 
-.predictions-table button:hover {
-  background-color: #555;
+.predictions-table:hover button {
+  background-color: var(--b2);
 }
 
-.predictions-table button:focus {
-  outline: 2px solid #888;
-  outline-offset: 2px;
+.predictions-table tr:hover button {
+  background-color: var(--b3);
+}
+
+.predictions-table:hover button:hover {
+  background-color: var(--b4)
 }

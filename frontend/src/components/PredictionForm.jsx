@@ -20,10 +20,12 @@ function PredictionForm({
       <div className="hero">
         <div className="text-container">
           <h1>CKDPredict</h1>
-          <p>Chronic Kidney Disease Risk Predictor Full-Stack App</p>
+          <p>
+            Chronic Kidney Disease Risk Predictor, ML-Powered, Full-Stack App
+          </p>
         </div>
         <div className="img-container">
-          <img src={logo} alt="" />
+          <img src={"logo"} alt="" />
         </div>
       </div>
       <div className="form-container">
@@ -62,18 +64,12 @@ function PredictionForm({
             />
           </label>
           <button type="submit" disabled={loading}>
-            {loading
-              ? isEditing
-                ? "Saving..."
-                : "Predicting..."
-              : isEditing
-              ? "Update Entry"
-              : "Predict CKD Risk"}
+            {isEditing ? "Update Entry" : "Predict CKD Risk"}
           </button>
         </form>
       </div>
 
-      <p>Result: {result}</p>
+      <p>Result:<span className="result">{result}</span></p>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
