@@ -248,6 +248,23 @@ form button:hover {
 
 @media (max-width: 650px) {
   .app {
+    height: 100vh;
+    padding: 1rem;
+    width: auto;
+    align-items: center;
+  }
+
+  .img-container {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .prediction-form {
+    width: 100%;
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+  .predictions-table {
     display: none;
   }
 }
