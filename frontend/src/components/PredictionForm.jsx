@@ -25,7 +25,7 @@ function PredictionForm({
           </p>
         </div>
         <div className="img-container">
-          <img src={"logo"} alt="" />
+          <img src={logo} alt="" />
         </div>
       </div>
       <div className="form-container">
