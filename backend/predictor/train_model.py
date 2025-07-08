@@ -1,67 +1,75 @@
 import pandas as pd
+import numpy as np
 import torch
 import torch.nn as nn
+import torch.optim as optim
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import numpy as np
+import joblib  # for saving scaler
 
-# Load and prepare data
+# 1. Load and prepare data
 df = pd.read_csv("ckd.csv")
 df = df[['age', 'bp', 'sg', 'al', 'classification']]
+
+# Map classification labels to binary
 df['classification'] = df['classification'].str.strip().map({'ckd': 1, 'notckd': 0})
+
+# Drop rows with missing data
 df.dropna(inplace=True)
 
-# Features and target
 X = df[['age', 'bp', 'sg', 'al']].values.astype(np.float32)
 y = df['classification'].values.astype(np.float32).reshape(-1, 1)
 
-# Normalize inputs
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
-# Train/test split
+# 2. Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Convert to tensors
-X_train = torch.tensor(X_train)
-y_train = torch.tensor(y_train)
+# 3. Scale features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
-# Define simple linear model
-model = nn.Sequential(
-    nn.Linear(4, 1),   # 4 input features → 1 output
-    nn.Sigmoid()       # Use sigmoid for output between 0 and 1
-)
+# 4. Convert to torch tensors
+X_train = torch.tensor(X_train, dtype=torch.float32)
+y_train = torch.tensor(y_train, dtype=torch.float32)
+X_test = torch.tensor(X_test, dtype=torch.float32)
+y_test = torch.tensor(y_test, dtype=torch.float32)
 
-# Loss and optimizer
+# 5. Define model architecture
+class CKDModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(4, 16),
+            nn.ReLU(),
+            nn.Linear(16, 8),
+            nn.ReLU(),
+            nn.Linear(8, 1),
+            nn.Sigmoid()
+        )
+    def forward(self, x):
+        return self.net(x)
+
+model = CKDModel()
+
+# 6. Loss and optimizer
 criterion = nn.BCELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
-for epoch in range(500):
+# 7. Training loop
+epochs = 100
+for epoch in range(epochs):
+    model.train()
     optimizer.zero_grad()
     outputs = model(X_train)
     loss = criterion(outputs, y_train)
     loss.backward()
     optimizer.step()
 
-# Save model and scaler
-torch.save({'model_state_dict': model.state_dict(), 'scaler': scaler}, 'ckd_model.pt')
+    if (epoch + 1) % 10 == 0:
+        print(f"Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}")
 
-# Sample test data (modifiable)
-sample_data = np.array([
-    [20, 80, 1.020, 1],
-    [45, 70, 1.015, 2],
-    [60, 90, 1.010, 3],
-    [30, 85, 1.025, 0],
-    [50, 95, 1.005, 4]
-], dtype=np.float32)
+# 8. Save model weights and scaler
+torch.save(model.state_dict(), "ckd_model.pt")
+joblib.dump(scaler, "scaler.pkl")
 
-# Normalize sample using same scaler
-sample_data = scaler.transform(sample_data)
-sample_tensor = torch.tensor(sample_data)
-
-# Predict
-with torch.no_grad():
-    preds = model(sample_tensor)
-    binary_preds = (preds >= 0.5).int()
-    print("Predictions:", binary_preds.view(-1).tolist())
+print("Training complete. Model and scaler saved.")

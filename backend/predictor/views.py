@@ -1,25 +1,35 @@
 import torch
 import torch.nn as nn
+import joblib
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Patient
 from .serializers import PatientSerializer
 
-# Re-define model architecture (must match the one in training)
+# Define model architecture (must match training)
 class CKDModel(nn.Module):
     def __init__(self):
-        super(CKDModel, self).__init__()
-        self.linear = nn.Linear(4, 1)
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(4, 16),
+            nn.ReLU(),
+            nn.Linear(16, 8),
+            nn.ReLU(),
+            nn.Linear(8, 1),
+            nn.Sigmoid()
+        )
 
     def forward(self, x):
-        return torch.sigmoid(self.linear(x))
+        return self.net(x)
 
-# Instantiate and load state_dict
+# Instantiate model and load weights
 model = CKDModel()
 model.load_state_dict(torch.load('predictor/ckd_model.pt', map_location='cpu'))
 model.eval()
 
+# Load scaler saved from training
+scaler = joblib.load('predictor/scaler.pkl')
 
 @api_view(['POST'])
 def predict_ckd(request):
@@ -27,16 +37,18 @@ def predict_ckd(request):
     if serializer.is_valid():
         data = serializer.validated_data
 
-        # Prepare input as tensor (batch of 1 sample)
-        input_tensor = torch.FloatTensor([[data['age'], data['bp'], data['sg'], data['al']]])
+        # Extract features, scale and convert to tensor
+        input_data = [[data['age'], data['bp'], data['sg'], data['al']]]
+        input_scaled = scaler.transform(input_data)
+        input_tensor = torch.FloatTensor(input_scaled)
 
-        # Run prediction
+        # Model prediction
         with torch.no_grad():
-            output = model(input_tensor)  # raw logits
-            probability= output.item()
-            prediction = int(probability >= 0.5)  # binary classification
+            output = model(input_tensor)
+            probability = output.item()
+            prediction = int(probability >= 0.5)
 
-        # Save to database
+        # Save patient with prediction
         Patient.objects.create(
             age=data['age'],
             bp=data['bp'],
@@ -69,10 +81,14 @@ def update_patient(request, pk):
         data = serializer.validated_data
         updated_patient = serializer.save()
 
-        input_tensor = torch.FloatTensor([[data['age'], data['bp'], data['sg'], data['al']]])
+        # Scale input and predict
+        input_data = [[data['age'], data['bp'], data['sg'], data['al']]]
+        input_scaled = scaler.transform(input_data)
+        input_tensor = torch.FloatTensor(input_scaled)
+
         with torch.no_grad():
             output = model(input_tensor)
-            probability= output.item()
+            probability = output.item()
             prediction = int(probability >= 0.5)
 
         updated_patient.prediction = bool(prediction)
