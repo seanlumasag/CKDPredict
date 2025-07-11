@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ckdpredict.onrender.com";
 
 function App() {
   const [age, setAge] = useState("");
