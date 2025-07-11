@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function App() {
   const [age, setAge] = useState("");
@@ -24,7 +25,7 @@ function App() {
     setLoadingHistory(true);
     setHistoryError(null);
     try {
-      const res = await fetch("http://localhost:8000/api/recent/");
+      const res = await fetch(`${API_BASE_URL}/api/recent/`);
       if (!res.ok) throw new Error("Failed to fetch history");
       const data = await res.json();
       setHistory(data);
@@ -49,8 +50,8 @@ function App() {
     };
 
     const url = isEditing
-      ? `http://localhost:8000/api/patient/${editId}/`
-      : "http://localhost:8000/api/predict/";
+      ? `${API_BASE_URL}/api/patient/${editId}/`
+      : `${API_BASE_URL}/api/predict/`;
     const method = isEditing ? "PUT" : "POST";
 
     try {
@@ -94,12 +95,9 @@ function App() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/patient/${id}/delete/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/api/patient/${id}/delete/`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error("Failed to delete");
       await fetchHistory();
     } catch (err) {
