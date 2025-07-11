@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-#g)kz&&a2-l#5r09x#cq8aej4yk#m$8c5c4f#6550ut1d*=x@&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://ckdpredict.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ckdpredict.onrender.com', 'localhost', '127.0.0.1']
 
 
 
@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['https://ckdpredict.onrender.com', 'localhost', '127.0.0.1']
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://ckd-predict.vercel.app"
 ]
 
 INSTALLED_APPS = [
