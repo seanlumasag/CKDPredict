@@ -12,6 +12,7 @@ Flask==3.1.0
 Flask-Cors==5.0.0
 fsspec==2025.5.1
 itsdangerous==2.2.0
+gunicron
 Jinja2==3.1.5
 joblib==1.5.1
 macholib==1.16.3
