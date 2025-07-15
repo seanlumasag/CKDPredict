@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['ckdpredict.onrender.com', 'localhost', '127.0.0.1']
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://ckd-predict.vercel.app"
+    "https://ckdpredict.vercel.app"
 ]
 
 INSTALLED_APPS = [
