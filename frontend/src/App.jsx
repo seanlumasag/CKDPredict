@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
-const API_BASE_URL = "https://ckdpredict.onrender.com";
-const API_BASE_URL_ = "http://localhost:8000";
+const API_BASE_URL_ = "https://ckdpredict.onrender.com";
+const API_BASE_URL = "http://localhost:8080";
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
     setLoadingHistory(true);
     setHistoryError(null);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/recent/`);
+      const res = await fetch(`${API_BASE_URL}/api/recent`);
       if (!res.ok) throw new Error("Failed to fetch history");
       const data = await res.json();
       setHistory(data);
@@ -52,8 +52,8 @@ function App() {
     };
 
     const url = isEditing
-      ? `${API_BASE_URL}/api/patient/${editId}/`
-      : `${API_BASE_URL}/api/predict/`;
+      ? `${API_BASE_URL}/api/patient/${editId}`
+      : `${API_BASE_URL}/api/predict`;
     const method = isEditing ? "PUT" : "POST";
 
     try {
@@ -97,7 +97,7 @@ function App() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
     try {
-      const res = await fetch(`${API_BASE_URL}/api/patient/${id}/delete/`, {
+      const res = await fetch(`${API_BASE_URL}/api/patient/${id}/delete`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete");
@@ -107,6 +107,7 @@ function App() {
     }
   };
 
+  
   return (
     <div className="app">
       <PredictionForm

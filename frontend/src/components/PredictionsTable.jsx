@@ -36,7 +36,7 @@ function PredictionsTable({
                   </p>
                 </div>
               </td>
-              <td>{new Date(patient.created_at).toLocaleDateString()}</td>
+              <td>{new Date(patient.createdAt).toLocaleDateString()}</td>
               <td>
                 <div className="button-container">
                   <button onClick={() => handleEdit(patient)}>Edit</button>
