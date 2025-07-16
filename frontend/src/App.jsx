@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
-const API_BASE_URL = "https://ckdpredict.onrender.com";
-const API_BASE_URL_ = "http://localhost:8080";
+const API_BASE_URL_ = "https://ckdpredict.onrender.com";
+const API_BASE_URL = "http://localhost:8080";
 
 
 function App() {
@@ -68,7 +68,7 @@ function App() {
       if (!response.ok) throw new Error("Failed to save data");
 
       const data = await response.json();
-      setResult(data.ckd_risk ? "High Risk" : "Low Risk");
+      setResult(data.prediction ? "High Risk" : "Low Risk");
       setIsEditing(false);
       setEditId(null);
       setAge("");

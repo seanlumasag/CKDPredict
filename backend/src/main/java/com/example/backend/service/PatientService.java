@@ -7,6 +7,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class PatientService {
 
@@ -39,7 +48,7 @@ public class PatientService {
     public Patient predictAndSave(Patient patient) {
         // TODO: Add actual ML prediction logic here,
         // For now, dummy example:
-        boolean predictedRisk = dummyPredict(patient);
+        boolean predictedRisk = MLPredict(patient);
         patient.setPrediction(predictedRisk);
 
         return patientRepository.save(patient);
@@ -52,7 +61,7 @@ public class PatientService {
 
     public Patient updatePatient(Long id, Patient updatedPatient) {
         Patient existingPatient = patientRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
 
         existingPatient.setAge(updatedPatient.getAge());
         existingPatient.setBp(updatedPatient.getBp());
@@ -60,15 +69,52 @@ public class PatientService {
         existingPatient.setAl(updatedPatient.getAl());
 
         // Recalculate prediction (dummy for now)
-        boolean predictedRisk = dummyPredict(existingPatient);
+        boolean predictedRisk = MLPredict(existingPatient);
         existingPatient.setPrediction(predictedRisk);
 
         return patientRepository.save(existingPatient);
     }
 
-    // Dummy prediction logic for example — replace with real ML call/integration
-    private boolean dummyPredict(Patient patient) {
-        // Example: if blood pressure > 140, high risk
-        return patient.getBp() > 140;
+    private boolean MLPredict(Patient patient) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+
+            String mlUrl = "http://localhost:8000/predict";
+
+            // Prepare request body as Map
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("age", patient.getAge());
+            requestBody.put("bp", patient.getBp());
+            requestBody.put("sg", patient.getSg());
+            requestBody.put("al", patient.getAl());
+
+            // Set headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+
+            // Call FastAPI POST /predict endpoint
+            ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+                    mlUrl,
+                    org.springframework.http.HttpMethod.POST,
+                    request,
+                    new ParameterizedTypeReference<Map<String, Object>>() {
+                    });
+
+
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                Map<String, Object> body = response.getBody();
+                // Assuming your FastAPI response has a key "prediction" with 0 or 1
+                Integer prediction = (Integer) body.get("prediction");
+                return prediction != null && prediction == 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Log error or handle accordingly
+        }
+
+        // Fallback to false if call fails
+        return false;
     }
 }
