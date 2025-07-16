@@ -4,7 +4,6 @@ import PredictionsTable from "./components/PredictionsTable";
 const API_BASE_URL = "https://backend-hq73.onrender.com";
 const API_BASE_URL_ = "http://localhost:8080";
 
-
 function App() {
   const [age, setAge] = useState("");
   const [bp, setBp] = useState("");
