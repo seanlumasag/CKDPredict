@@ -79,7 +79,8 @@ public class PatientService {
         try {
             RestTemplate restTemplate = new RestTemplate();
 
-            String mlUrl = "http://localhost:8000/predict";
+            String mlUrl_ = "http://localhost:8000/predict";
+            String mlUrl = "https://ckd-ml.onrender.com/predict";
 
             // Prepare request body as Map
             Map<String, Object> requestBody = new HashMap<>();
@@ -101,7 +102,6 @@ public class PatientService {
                     request,
                     new ParameterizedTypeReference<Map<String, Object>>() {
                     });
-
 
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 Map<String, Object> body = response.getBody();
