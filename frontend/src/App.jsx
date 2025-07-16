@@ -97,7 +97,7 @@ function App() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
     try {
-      const res = await fetch(`${API_BASE_URL}/api/patient/${id}/delete`, {
+      const res = await fetch(`${API_BASE_URL}/api/patient/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete");
