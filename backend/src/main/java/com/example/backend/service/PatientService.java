@@ -80,7 +80,7 @@ public class PatientService {
             RestTemplate restTemplate = new RestTemplate();
 
             String mlUrl_ = "http://localhost:8000/predict";
-            String mlUrl = "https://ckd-ml.onrender.com/predict";
+            String mlUrl = "https://backend-ml-3d3w.onrender.com/predict";
 
             // Prepare request body as Map
             Map<String, Object> requestBody = new HashMap<>();
