@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173", "https://ckdpredict.vercel.app", "http://localhost:8000")
+                        .allowedOrigins("http://localhost:5173", "https://ckdpredict.vercel.app", "http://localhost:8000", "https://backend-ml-3d3w.onrender.com")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }
