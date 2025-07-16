@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
-const API_BASE_URL = "https://ckdpredict.onrender.com";
+const API_BASE_URL = "https://backend-hq73.onrender.com";
 const API_BASE_URL_ = "http://localhost:8080";
 
 
