@@ -26,7 +26,6 @@ public class Patient {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getters and setters below
     public Long getId() {
         return id;
     }

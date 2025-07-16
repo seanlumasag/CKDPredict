@@ -17,7 +17,6 @@ public class PatientController {
 
     @PostMapping("/predict")
     public ResponseEntity<?> createPrediction(@RequestBody Patient patient) {
-        // Save patient and return prediction result
         return ResponseEntity.ok(patientService.predictAndSave(patient));
     }
 
