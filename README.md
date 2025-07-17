@@ -64,3 +64,13 @@ cd ml-service
 pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+## 🚧 Future Features
+
+- Error and loading screens
+- User authentication and profile management  
+- Advanced data visualization and analytics dashboards  
+- Integration with external medical databases for richer datasets  
+- Improved error handling and input validation  
+- Automated testing and CI/CD pipeline  
+- Mobile-responsive design enhancements 
