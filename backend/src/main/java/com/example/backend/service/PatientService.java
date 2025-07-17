@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -67,11 +68,15 @@ public class PatientService {
         return patientRepository.save(existingPatient);
     }
 
+    @Value("${ml.service.url}")
+    private String mlServiceUrl;
+
     private boolean MLPredict(Patient patient) {
+
         try {
             RestTemplate restTemplate = new RestTemplate();
 
-            String mlUrl = "https://backend-ml-3d3w.onrender.com/predict";
+            String mlUrl = mlServiceUrl + "/predict";
 
             Map<String, Object> requestBody = new HashMap<>();
             requestBody.put("age", patient.getAge());
