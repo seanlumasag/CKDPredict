@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PredictionForm from "./components/PredictionForm";
 import PredictionsTable from "./components/PredictionsTable";
-const API_BASE_URL = "https://backend-hq73.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
   const [age, setAge] = useState("");
