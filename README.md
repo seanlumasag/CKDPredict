@@ -1,4 +1,4 @@
-# CKD Risk Predictor
+# CKDPredict
 
 A full-stack web app serving as a risk predictor for Chronic Kidney Disease (CKD) based on user health inputs. Built with a modern tech stack including Spring Boot, React, and a PyTorch machine learning microservice.
 
