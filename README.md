@@ -39,13 +39,6 @@ A full-stack web app serving as a risk predictor for Chronic Kidney Disease (CKD
 - Python 3.9+
 - PostgreSQL
 
-### Prerequisites
-
-- Java 17+
-- Node.js and npm
-- Python 3.9+
-- PostgreSQL
-
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/seanlumasag/CKDPredict
