@@ -14,7 +14,7 @@ A full-stack web app serving as a risk predictor for Chronic Kidney Disease (CKD
 
 ---
 
-## 🚀 Live Demo
+## 🚀 Live Site
 
 🌐 https://ckdpredict.vercel.app
 
