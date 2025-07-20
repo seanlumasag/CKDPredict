@@ -67,6 +67,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ## 🚧 Future Features
 
+- Varying results outside of "Low/High"
 - Error and loading screens
 - User authentication and profile management  
 - Advanced data visualization and analytics dashboards  
