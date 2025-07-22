@@ -132,28 +132,34 @@ function App() {
 
   return (
     <div className="app">
-      <PredictionForm
-        age={age}
-        bp={bp}
-        sg={sg}
-        al={al}
-        setAge={setAge}
-        setBp={setBp}
-        setSg={setSg}
-        setAl={setAl}
-        loading={loading}
-        isEditing={isEditing}
-        handleSubmit={handleSubmit}
-        result={result}
-        error={error}
-      />
-      <PredictionsTable
-        history={history}
-        loadingHistory={loadingHistory}
-        historyError={historyError}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
+      <div className="predictions-container">
+        <PredictionForm
+          age={age}
+          bp={bp}
+          sg={sg}
+          al={al}
+          setAge={setAge}
+          setBp={setBp}
+          setSg={setSg}
+          setAl={setAl}
+          loading={loading}
+          isEditing={isEditing}
+          handleSubmit={handleSubmit}
+          result={result}
+          error={error}
+        />
+        <PredictionsTable
+          history={history}
+          loadingHistory={loadingHistory}
+          historyError={historyError}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      </div>
+      <div className="responsiveness">
+        <h1>Please use wider resolution</h1>
+      </div>
+
     </div>
   );
 }
