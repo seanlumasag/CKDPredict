@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * REST controller handling Patient-related API endpoints.
@@ -60,7 +61,7 @@ public class PatientController {
      * @return Updated patient info or status
      */
     @PutMapping("/patient/{id}")
-    public ResponseEntity<?> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
+    public ResponseEntity<?> updatePatient(@PathVariable UUID id, @RequestBody Patient patient) {
         return ResponseEntity.ok(patientService.updatePatient(id, patient));
     }
 
@@ -72,7 +73,7 @@ public class PatientController {
      * @return HTTP 204 No Content on successful deletion
      */
     @DeleteMapping("/patient/{id}")
-    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
         patientService.deletePatient(id);
         return ResponseEntity.noContent().build();
     }

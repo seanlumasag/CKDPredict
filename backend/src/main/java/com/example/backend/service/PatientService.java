@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Service class that contains business logic related to Patient operations.
@@ -45,7 +46,7 @@ public class PatientService {
      * @param id The ID of the patient.
      * @return Optional containing the patient if found, otherwise empty.
      */
-    public Optional<Patient> getPatientById(Long id) {
+    public Optional<Patient> getPatientById(UUID id) {
         return patientRepository.findById(id);
     }
 
@@ -64,7 +65,7 @@ public class PatientService {
      * 
      * @param id The ID of the patient to delete.
      */
-    public void deletePatient(Long id) {
+    public void deletePatient(UUID id) {
         patientRepository.deleteById(id);
     }
 
@@ -95,7 +96,7 @@ public class PatientService {
      * @param updatedPatient The updated patient data.
      * @return The updated and saved patient.
      */
-    public Patient updatePatient(Long id, Patient updatedPatient) {
+    public Patient updatePatient(UUID id, Patient updatedPatient) {
         // Fetch existing patient or throw if not found
         Patient existingPatient = patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
