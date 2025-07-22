@@ -27,11 +27,22 @@ p {
 }
 
 .app {
-  height: 100vh;
   display: flex;
-  gap: 2rem;
+  height: 100vh;
   align-items: center;
   justify-content: center;
+}
+
+.responsiveness{
+  display: none;
+}
+
+.predictions-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3rem;
+  background-color: var(--b1);
 }
 
 .prediction-form,
@@ -94,9 +105,9 @@ img {
   background-color: var(--b1);
 }
 
-.prediction-form:hover {
-  background-color: var(--b2);
-}
+
+
+
 
 .prediction-form label {
   color: var(--p1);
@@ -111,9 +122,6 @@ img {
   background-color: var(--b3);
 }
 
-.predictions-table:hover {
-  background-color: var(--b1);
-}
 
 form {
   display: grid;
@@ -238,33 +246,12 @@ form button:hover {
   background-color: var(--b4);
 }
 
-@media (max-width: 1150px) and (min-width: 650px) {
-  .app {
-    flex-direction: column;
-    height: auto;
-    padding: 4rem;
-  }
-}
-
-@media (max-width: 650px) {
-  .app {
-    height: 100vh;
-    padding: 1rem;
-    width: auto;
-    align-items: center;
-  }
-
-  .img-container {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  .prediction-form {
-    width: 100%;
-    padding: 2rem;
-    border-radius: 2rem;
-  }
-  .predictions-table {
+@media (max-width: 1150px) {
+  .predictions-container {
     display: none;
   }
+  .responsiveness{
+    display: initial;
+  }
 }
+
