@@ -55,8 +55,7 @@ def predict(patient: PatientData):
     # Perform prediction with the model, disabling gradient calculations
     with torch.no_grad():
         output = model(input_tensor)           # Forward pass through model
-        prob_ckd = output.item()               # Get raw probability from output tensor
-        binary_prediction = int(prob_ckd > 0.5)  # Convert probability to binary (0 = low risk, 1 = high risk)
+        prob_ckd = round(output.item(), 3)     # Round to 3 decimal places of raw probability from output tensor
 
     # Return the prediction and probability as JSON response
     return {

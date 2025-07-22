@@ -41,7 +41,7 @@ function PredictionsTable({
               <td>
                 <div className="result-container">
                   <p className="result">
-                    {patient.prediction ? "High Risk" : "Low Risk"}
+                    {patient.prediction}
                   </p>
                 </div>
               </td>

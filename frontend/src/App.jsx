@@ -83,7 +83,7 @@ function App() {
       const data = await response.json();
 
       // Show result as human-readable message
-      setResult(data.prediction ? "High Risk" : "Low Risk");
+      setResult(data.prediction);
 
       // Reset form and states
       setIsEditing(false);
