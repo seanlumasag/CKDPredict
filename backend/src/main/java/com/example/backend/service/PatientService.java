@@ -76,9 +76,8 @@ public class PatientService {
      * @return The saved patient object with prediction result.
      */
     public Patient predictAndSave(Patient patient) {
-        boolean predictedRisk = MLPredict(patient);
+        float predictedRisk = MLPredict(patient);
         patient.setPrediction(predictedRisk);
-
         return patientRepository.save(patient);
     }
 
@@ -108,7 +107,7 @@ public class PatientService {
         existingPatient.setAl(updatedPatient.getAl());
 
         // Predict again with updated data
-        boolean predictedRisk = MLPredict(existingPatient);
+        float predictedRisk = MLPredict(existingPatient);
         existingPatient.setPrediction(predictedRisk);
 
         // Save updated patient
@@ -122,12 +121,12 @@ public class PatientService {
     /**
      * Calls the external ML service to predict CKD risk for a patient.
      * Sends a POST request with patient's age, bp, sg, al values.
-     * Expects a JSON response: { "prediction": 1 or 0 }.
+     * Expects a JSON response: { "prediction": 0, 1, etc }.
      * 
      * @param patient The patient to send for prediction.
      * @return true if CKD is predicted (1), false otherwise (0 or error).
      */
-    private boolean MLPredict(Patient patient) {
+    private float MLPredict(Patient patient) {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
@@ -160,14 +159,14 @@ public class PatientService {
             // Check response and extract prediction
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 Map<String, Object> body = response.getBody();
-                Integer prediction = (Integer) body.get("prediction");
-                return prediction != null && prediction == 1;
+                float prediction = ((Number) body.get("prediction")).floatValue();
+                return prediction;
             }
         } catch (Exception e) {
             // Log error and return false
             e.printStackTrace();
         }
 
-        return false;
+        return -1;
     }
 }

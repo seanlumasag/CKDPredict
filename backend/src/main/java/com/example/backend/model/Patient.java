@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 /**
  * Entity representing a patient and their CKD prediction data.
- * This maps to the 'predictor_patient' table in the database.
+ * This maps to the 'patient' table in the database.
  */
 @Entity
-@Table(name = "predictor_patient")
+@Table(name = "patient")
 public class Patient {
 
     /**
@@ -32,7 +32,7 @@ public class Patient {
     private float al;
 
     // Model's prediction: true if CKD is likely, false otherwise
-    private Boolean prediction;
+    private float prediction;
 
     /**
      * Timestamp when the record was created.
@@ -91,11 +91,11 @@ public class Patient {
         this.al = al;
     }
 
-    public Boolean getPrediction() {
+    public float getPrediction() {
         return prediction;
     }
 
-    public void setPrediction(Boolean prediction) {
+    public void setPrediction(float prediction) {
         this.prediction = prediction;
     }
 

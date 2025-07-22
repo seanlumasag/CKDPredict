@@ -60,6 +60,5 @@ def predict(patient: PatientData):
 
     # Return the prediction and probability as JSON response
     return {
-        "probability_ckd": prob_ckd,
-        "prediction": binary_prediction
+        "prediction": prob_ckd
     }
