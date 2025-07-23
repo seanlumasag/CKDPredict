@@ -1,0 +1,19 @@
+# application.properties.example
+
+# URL of the Python ML microservice
+ml.service.url=http://localhost:8000
+
+# Spring Boot application name
+spring.application.name=backend
+
+# PostgreSQL JDBC driver
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Database connection (replace placeholders with your actual credentials)
+spring.datasource.url=jdbc:postgresql://<your-host>:<port>/<your-database>?sslmode=require&channel_binding=require
+spring.datasource.username=<your-db-username>
+spring.datasource.password=<your-db-password>
+
+# JPA settings
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
