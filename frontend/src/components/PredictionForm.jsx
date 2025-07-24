@@ -81,14 +81,25 @@ function PredictionForm({
         </form>
       </div>
 
-      {/* Display prediction result */}
       <p>
-        Result:
-        <span className="result">{result}</span>
+        Result: {"        "}
+        {loading ? (
+          <span className="result">Loading...</span>
+        ) : error ? (
+          <span
+            className="result"
+            style={{
+              color: "white",
+              marginLeft: "0.25rem",
+              backgroundColor: "red",
+            }}
+          >
+            {error}
+          </span>
+        ) : (
+          <span className="result">{result}</span>
+        )}
       </p>
-
-      {/* Display error if there is one */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

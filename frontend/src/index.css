@@ -33,11 +33,11 @@ p {
   justify-content: center;
 }
 
-.responsiveness{
+.responsiveness {
   display: none;
 }
 
-.predictions-container{
+.predictions-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,6 +92,7 @@ img {
   display: inline-block;
 }
 
+
 .prediction-form .result {
   margin-left: 0.25rem;
 }
@@ -105,10 +106,6 @@ img {
   background-color: var(--b1);
 }
 
-
-
-
-
 .prediction-form label {
   color: var(--p1);
 }
@@ -121,7 +118,6 @@ img {
 .prediction-form:hover input {
   background-color: var(--b3);
 }
-
 
 form {
   display: grid;
@@ -250,8 +246,7 @@ form button:hover {
   .predictions-container {
     display: none;
   }
-  .responsiveness{
+  .responsiveness {
     display: initial;
   }
 }
-

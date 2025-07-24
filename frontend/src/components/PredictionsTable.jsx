@@ -7,7 +7,17 @@ function PredictionsTable({
 }) {
   // If there's an error fetching history, show it in red
   if (historyError)
-    return <p style={{ color: "red" }}>Error: {historyError}</p>;
+    return (
+      <div className="predictions-table">
+        <p style={{ margin: "auto", color: "red" }}>Error: {historyError}</p>;
+      </div>
+    );
+  if (loadingHistory)
+    return (
+      <div className="predictions-table">
+        <h1 style={{ margin: "auto" }}>Loading...</h1>
+      </div>
+    );
 
   return (
     <div className="predictions-table">
@@ -40,9 +50,7 @@ function PredictionsTable({
               {/* Show prediction result as High or Low Risk */}
               <td>
                 <div className="result-container">
-                  <p className="result">
-                    {patient.prediction}
-                  </p>
+                  <p className="result">{patient.prediction}</p>
                 </div>
               </td>
 
