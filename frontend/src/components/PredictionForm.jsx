@@ -21,9 +21,9 @@ function PredictionForm({
       <div className="hero">
         <div className="text-container">
           <h1>CKDPredict</h1>
-          <p>
-            Risk Predictor for Chronic Kidney Disease ML-Powered, Full-Stack App
-          </p>
+          <p>- Risk Predictor for Chronic Kidney Disease</p>
+          <p>- ML-Powered Full-Stack App</p>
+          <p>- Loading may take up to a minute</p>
         </div>
         <div className="img-container">
           <img src={logo} alt="" />
